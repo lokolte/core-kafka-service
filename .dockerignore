@@ -1,0 +1,5 @@
+*
+!conf/logback-prod.xml
+!conf/logback-qat2.xml
+!target/universal/core-kafka-service.zip
+!entrypoint.sh
