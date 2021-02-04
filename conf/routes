@@ -1,0 +1,56 @@
+
+### NoDocs ###
+GET         /kafka/docs/swagger-ui/*file        controllers.Assets.at(path:String="/public/lib/swagger-ui", file:String)
+
+### NoDocs ###
+GET         /kafka/assets/*file                 controllers.Assets.versioned(path="/public", file: Asset)
+
+### NoDocs ###
+GET         /kafka/docs                         controllers.Default.redirect(to = "/kafka/docs/swagger-ui/index.html?url=/kafka/assets/swagger.json")
+
+GET         /kafka/version                      controllers.Assets.at(path="/public", file="version.json")
+
+###
+ #  summary: Publish Events
+ #  tags:
+ #    - responder
+ #  description: Endpoint used to publish events to kafka
+ #  requestBody:
+ #    required: true
+ #    content:
+ #     application/json:
+ #       schema:
+ #        $ref: "#/components/schemas/core.kafka.models.request.ValueEvent"
+ #       example:
+ #         key: 123
+ #         value: "Whatever message"
+ #  responses:
+ #    201:
+ #      description: Event published successfully
+ #      content:
+ #        application/json:
+ #         schema:
+ #           type: object
+ #           properties:
+ #             data:
+ #               $ref: '#/components/schemas/core.kafka.models.response.ValidValue'
+ #    400:
+ #      description: Bad request
+ #      content:
+ #        application/json:
+ #         schema:
+ #          $ref: '#/components/schemas/core.kafka.models.response.Errors'
+ #    409:
+ #      description: Responder already exists with the same name
+ #      content:
+ #        application/json:
+ #         schema:
+ #          $ref: '#/components/schemas/core.kafka.models.response.Errors'
+ #    500:
+ #      description: Internal Server Error
+ #      content:
+ #        application/json:
+ #         schema:
+ #          $ref: '#/components/schemas/core.kafka.models.response.Errors'
+###
+POST        /kafka/publish                   core.kafka.controllers.ServiceController.publishEvent
